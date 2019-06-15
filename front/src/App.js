@@ -3,7 +3,7 @@ import Layout from "./components/layout";
 import {connect} from "react-redux";
 import {fetchAccounts} from "./store/actions/zoomActions";
 import Spinner from "./components/UI/Spinner/Spinner";
-import FourZeroFour from "components/UI/404/404";
+import FourZeroFour from "components/UI/404/FourZeroFour";
 
 class App extends Component {
     componentDidMount() {

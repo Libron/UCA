@@ -5,7 +5,6 @@ const rp = require('request-promise');
 
 const router = express.Router();
 
-
 router.get('/meetings', async (req, res) => {
     const zoomAccounts = [];
     await Promise.all(config.accounts.map(acc => {
@@ -35,10 +34,9 @@ router.get('/meetings', async (req, res) => {
                     ...response
                 };
                 zoomAccounts.push(data);
-            })
+            }).catch(e => console.log(e));
     })).then(() => res.send(zoomAccounts))
         .catch(e => {
-            console.log(e);
             res.sendStatus(500);
         });
 });
@@ -48,14 +46,13 @@ router.get('/accounts', (req, res) => {
         acc[item.accountNumber] = item.email;
         return acc;
     }, {});
-
     res.send(data);
 });
 
 router.get('/meetings/:id',async (req, res) => {
     const data = await config.accounts.find(item => item.accountNumber === parseInt(req.params.id));
     if (!data) {
-        res.sendStatus(404);
+        return res.sendStatus(404);
     }
 
     const meetingsUri = `https://api.zoom.us/v2/users/${data.id}/meetings?type=upcoming`;
@@ -80,10 +77,8 @@ router.get('/meetings/:id',async (req, res) => {
     await rp(options)
         .then(function (response) {
             const account = {...response, email: data.email};
-           return res.send([account]);
-        });
-
-    return res.sendStatus(400);
+            return res.send([account]);
+        }).catch(e => res.sendStatus(500));
 });
 
 module.exports = router;

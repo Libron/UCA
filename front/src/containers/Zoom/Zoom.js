@@ -1,10 +1,9 @@
 import React, {Component, Fragment} from 'react';
 import {connect} from "react-redux";
-import {fetchMeetings} from "store/actions/zoomActions";
-import Spinner from "components/UI/Spinner/Spinner";
-import ZoomTable from "components/ZoomTable";
+import Spinner from "../../components/UI/Spinner/Spinner";
+import ZoomTable from "../../components/ZoomTable";
 import dateFns from "date-fns";
-import {fetchMeetingsById} from "../../store/actions/zoomActions";
+import {fetchMeetings, fetchMeetingsById} from "../../store/actions/zoomActions";
 
 const COLUMNS = [
     { title: 'Date', field: 'date' },

@@ -20,7 +20,6 @@ export const fetchMeetings = () => {
   return dispatch => {
       dispatch(fetchMeetingsRequest());
 
-      console.log('REQUEST MM');
       return axios.get('/zoom/meetings').then(
           response => {
               dispatch(fetchMeetingsSuccess(response.data))
@@ -47,15 +46,12 @@ export const fetchMeetingsById = (id) => {
 export const fetchAccounts = () => {
     return dispatch => {
         dispatch(fetchAccountsRequest());
-        console.log('REQUEST ACC');
 
         return axios.get('/zoom/accounts').then(
             response => {
-                console.log('SUCCESS', response);
                 dispatch(fetchAccountsSuccess(response.data))
             },
             error => {
-                console.log(error);
                 return dispatch(fetchAccountsFailure(error))
             }
         );
